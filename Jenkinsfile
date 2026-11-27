@@ -15,8 +15,11 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Получение исходного кода'
-                checkout scm
-                echo "Текущая ветка: ${env.GIT_BRANCH}"
+                script {
+                    def scmVars = checkout scm
+                    env.GIT_BRANCH = scmVars.GIT_BRANCH
+                    echo "Текущая ветка: ${env.GIT_BRANCH}"
+                }
             }
         }
 
